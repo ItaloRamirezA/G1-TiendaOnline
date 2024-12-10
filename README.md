@@ -1,1 +1,3 @@
 # Gx-TiendaOnline
+
+Proyecto grupal
