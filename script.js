@@ -15,9 +15,11 @@ let carrito = [];
 /**
  * Función para agregar productos al carrito
  */
-function agregarAlCarrito() {
+function agregarAlCarrito(index) {
+    carrito.push(productos[index]);
 
-}   
+    // TODO
+}  
 
 /**
  * Función para eliminar un producto del carrito
