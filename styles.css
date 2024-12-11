@@ -1,0 +1,59 @@
+/* Fuente Regular */
+@font-face {
+    font-family: 'Regular';
+    src: url('../Regular.otf') format('opentype');
+}
+
+body {
+    font-family: 'Regular', arial;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#infoTienda {
+    text-align: center;
+}
+
+.productos {
+    display: grid;
+    grid-auto-columns: minmax(200px, 1fr);
+    grid-auto-flow: column; 
+    gap: 20px;
+    padding: 20px;
+}
+
+.producto {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.producto:hover {
+    transform: scale(1.05);
+}
+
+.producto img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.producto h3 {
+    margin: 10px 0;
+    font-size: 1.2;
+}
+
+.producto .precio {
+    font-size: 1.1;
+    color: #e91e63;
+}
