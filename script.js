@@ -30,8 +30,11 @@ function agregarAlCarrito(index) {
  */
 function eliminarProductoCarrito(index) {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
     carrito.splice(index, 1);
+
     localStorage.setItem('carrito', JSON.stringify(carrito));
+
     actualizarCarrito();
 }
 
@@ -70,4 +73,3 @@ document.querySelector('.boton-toggle-carrito').addEventListener('click', () => 
 window.onload = function () {
     actualizarCarrito();
 };
-
