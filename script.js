@@ -1,4 +1,8 @@
+
+//cantidad toatal de diel-precio-total-en-el-carritonro en el carrito
+let total=0
 // Lista de productos que son objetos
+
 const productos = [
     {nombre: "Peluche de Araña", precio: 30.00},
     {nombre: "Peluche de Aveja", precio: 30.00},
@@ -16,13 +20,24 @@ let carrito = [];
  * Función para agregar productos al carrito
  */
 function agregarAlCarrito(index) {
+    total=0
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
     carrito.push(productos[index]);
-
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    let carritoLista = document.getElementById('carrito-lista');
+    carritoLista.innerHTML = '';
 
-    actualizarCarrito();
+    // Se agrega al carrito
+    for (let i = 0; i < carrito.length; i++) {
+        let producto = carrito[i];
+        total=total+producto.precio
+        let li = document.createElement('li');
+        li.innerHTML =
+            ` ${producto.nombre} - €${producto.precio} 
+            <br><button class="boton-eliminar" onclick="eliminarProductoCarrito(${i})">Eliminar</button>`;
+        carritoLista.appendChild(li);
+    }
+    actualizarCarrito()
 }
 
 /**
@@ -42,6 +57,9 @@ function eliminarProductoCarrito(index) {
  * Función para actualizar el carrito en el HTML
  */
 function actualizarCarrito() {
+localStorage.removeItem("total")
+document.getElementById("total").innerHTML=total+" €"
+localStorage.setItem("total",total)
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let carritoLista = document.getElementById('carrito-lista');
     carritoLista.innerHTML = '';
@@ -54,9 +72,6 @@ function actualizarCarrito() {
         `;
         carritoLista.appendChild(li);
     });
-
-    let total = carrito.reduce((sum, producto) => sum + producto.precio, 0);
-    document.getElementById('total').innerText = `Total: €${total.toFixed(2)}`;
 }
 
 /**
