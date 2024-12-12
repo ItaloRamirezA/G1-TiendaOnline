@@ -1,3 +1,5 @@
+//cantidad toatal de dienro en el carrito
+let total=0
 //Lista de productos que son objetos
 const productos = [
     {nombre: "Peluche de Araña", precio: 30.00},
@@ -16,6 +18,7 @@ let carrito = [];
  * Función para agregar productos al carrito
  */
 function agregarAlCarrito(index) {
+    total=0
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
     carrito.push(productos[index]);
@@ -28,12 +31,14 @@ function agregarAlCarrito(index) {
     // Se agrega al carrito
     for (let i = 0; i < carrito.length; i++) {
         let producto = carrito[i];
+        total=total+producto.precio
         let li = document.createElement('li');
         li.innerHTML =
             ` ${producto.nombre} - €${producto.precio} 
             <br><button class="boton-eliminar" onclick="eliminarProductoCarrito(${i})">Eliminar</button>`;
         carritoLista.appendChild(li);
     }
+    actualizarCarrito()
 }
 
 /**
@@ -54,10 +59,9 @@ function eliminarProductoCarrito(index) {
  * carrito y mostrar productos neuvos
  */
 function actualizarCarrito() {
-    // Igual tienes que cambiar algo de agregarAlCarrito
-    // para usar este metodo para que se muestre en el carrito
-
-    // hacer que en localStorage se elimine y guarde bien los productos
+localStorage.removeItem("total")
+document.getElementById("total").innerHTML=total+" €"
+localStorage.setItem("total",total)
 }
 
 /**
