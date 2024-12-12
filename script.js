@@ -40,14 +40,45 @@ function agregarAlCarrito(index) {
  * Función para eliminar un producto del carrito
  */
 function eliminarProductoCarrito(index) {
-    // Aqui debes coger el index(indice) y eliminar ese
-    // indice del array y del html, el indice va de 0 a 6 (mira html)
+    // Recuperar el carrito desde localStorage
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    // El boton ya tiene como parametro el numero de
-    // indice de cada producto, solo haz que se elimine
+    // Eliminar el producto del índice especificado
+    carrito.splice(index, 1);
 
-    // Hacer que el carrito sea responsive, que no ocupe toda la pantalla en movil
+    // Guardar el carrito actualizado en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizar la lista del carrito en el HTML
+    let carritoLista = document.getElementById('carrito-lista');
+    carritoLista.innerHTML = '';
+
+    // Recorrer el carrito actualizado y generar nuevamente el HTML
+    for (let i = 0; i < carrito.length; i++) {
+        let producto = carrito[i];
+        let li = document.createElement('li');
+        li.innerHTML = `
+            ${producto.nombre} - €${producto.precio}
+            <br><button class="boton-eliminar" onclick="eliminarProductoCarrito(${i})">Eliminar</button>
+        `;
+        carritoLista.appendChild(li);
+    }
+
+    // Actualizar el total
+    actualizarTotal();
 }
+
+function actualizarTotal() {
+    // Recuperar el carrito desde localStorage
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    // Calcular el total
+    let total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
+    
+    // Actualizar el total en el HTML
+    document.getElementById('total').textContent = `Total: €${total.toFixed(2)}`;
+}
+
 
 /**
  * Función para actualizar el
