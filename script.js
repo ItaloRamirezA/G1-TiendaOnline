@@ -20,7 +20,7 @@ let carrito = [];
  * Función para agregar productos al carrito
  */
 function agregarAlCarrito(index) {
-    total=0
+    
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     carrito.push(productos[index]);
     localStorage.setItem('carrito', JSON.stringify(carrito));
@@ -45,11 +45,8 @@ function agregarAlCarrito(index) {
  */
 function eliminarProductoCarrito(index) {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
     carrito.splice(index, 1);
-
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
     actualizarCarrito();
 }
 
@@ -57,14 +54,14 @@ function eliminarProductoCarrito(index) {
  * Función para actualizar el carrito en el HTML
  */
 function actualizarCarrito() {
-localStorage.removeItem("total")
-document.getElementById("total").innerHTML=total+" €"
-localStorage.setItem("total",total)
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    //limpiar el carrito para volver a rellenarlo
+    total=0   
+    localStorage.removeItem("total")
+     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let carritoLista = document.getElementById('carrito-lista');
     carritoLista.innerHTML = '';
-
     carrito.forEach((producto, index) => {
+        total=total+producto.precio
         let li = document.createElement('li');
         li.innerHTML = `
             ${producto.nombre} - €${producto.precio}
@@ -72,6 +69,9 @@ localStorage.setItem("total",total)
         `;
         carritoLista.appendChild(li);
     });
+
+    document.getElementById("total").innerHTML=total+" €"
+    localStorage.setItem("total",total)  
 }
 
 /**
