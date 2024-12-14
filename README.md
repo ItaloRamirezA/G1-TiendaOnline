@@ -1,4 +1,4 @@
-**# Gx-TiendaOnline
+# Gx-TiendaOnline
 ## TAble of Contents
 1. [Información General](#información-general)
 2. [Tecnologías](#tecnologías)
